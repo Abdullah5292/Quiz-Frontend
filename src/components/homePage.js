@@ -8,18 +8,19 @@ import NavBar from './NavBar';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Button } from '@mui/base';
+import { useNavigate } from 'react-router-dom';
 
 
 
 const HomePage = () => {
-
-
+    const navigate = useNavigate();
     const [data, setdata] = useState(null);
     const getData = async () => {
         const data = await axios.get('https://sandbox.practical.me/api/faq')
         setdata(data.data.data);
     }
     useEffect(() => {
+
         getData();
     }, [])
 
@@ -31,6 +32,7 @@ const HomePage = () => {
     return (
 
         <div>
+
             <NavBar />
 
             <div>
@@ -54,6 +56,8 @@ const HomePage = () => {
                     ))
 
                 }
+                <Button onClick={() => navigate('/profile')}>Profile</Button>
+
             </div>
         </div >
 

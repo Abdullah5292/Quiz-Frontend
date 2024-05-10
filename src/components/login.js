@@ -4,9 +4,11 @@ import axios from "axios";
 import { NotificationManager } from "react-notifications";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/user.reducer";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const formik = useFormik({
         initialValues: {
             email: "jivynosyfu@mailinator.com",
@@ -26,8 +28,10 @@ const Login = () => {
                 },
             });
             if (response.status === 200) {
+                console.log("200")
                 NotificationManager.success(response.data.msg);
                 dispatch(login(response.data.data.auth_token));
+                navigate("/home");
             } else {
                 NotificationManager.error(response.data.msg || response.statusText);
             }
