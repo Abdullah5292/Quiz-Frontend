@@ -1,23 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import AuthPage from "./components/authPage";
+import { NotificationContainer } from "react-notifications";
+import { useSelector } from "react-redux"
+import HomePage from "./components/homePage";
+import ProfilePage from "./components/ProfilePage";
 
 function App() {
+  const { loggedIn } = useSelector((state) => state.user);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {loggedIn ? <HomePage /> : <AuthPage />}
+      <NotificationContainer />
+      <button onClick={() => window.location.href = ''}>
+        Go to Profile Page
+      </button>
     </div>
   );
 }
